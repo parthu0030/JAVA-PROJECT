@@ -203,96 +203,6 @@ public class BinarySearchTreeEnhanced {
         return root == null;
     }
 
-    // Enhanced tree visualization
-    public void visualizeTree() {
-        System.out.println("\n===== Binary Search Tree Visualization =====");
-        if (root == null) {
-            System.out.println("Tree is empty!");
-            return;
-        }
-
-        int height = height();
-        int totalLevels = height + 1;
-        
-        // Prepare array to store nodes at each level
-        String[][] treeArray = new String[totalLevels][calculateMaxWidth(totalLevels)];
-        for (int i = 0; i < treeArray.length; i++) {
-            for (int j = 0; j < treeArray[i].length; j++) {
-                treeArray[i][j] = " ";
-            }
-        }
-        
-        // Fill the array with node values
-        fillTreeArray(root, 0, 0, treeArray[0].length - 1, treeArray);
-        
-        // Print the tree
-        for (String[] level : treeArray) {
-            for (String node : level) {
-                System.out.print(node);
-            }
-            System.out.println();
-        }
-        
-        System.out.println("=========================================");
-    }
-
-    // Calculate maximum width for the array based on tree height
-    private int calculateMaxWidth(int height) {
-        // For perfect binary tree, max nodes at lowest level is 2^h
-        // We need more space for formatting
-        return (int) Math.pow(2, height + 1) * 2;
-    }
-
-    // Fill the array with node values at appropriate positions
-    private void fillTreeArray(Node node, int level, int left, int right, String[][] treeArray) {
-        if (node == null) return;
-        
-        int mid = (left + right) / 2;
-        
-        // Format the node value with padding
-        String nodeStr = formatNodeValue(node.data);
-        
-        // Place node value at the middle position
-        treeArray[level][mid] = nodeStr;
-        
-        // Draw branches to children if they exist
-        if (node.left != null || node.right != null) {
-            // Left branch
-            if (node.left != null) {
-                int nextMid = (left + mid) / 2;
-                // Draw left branch
-                for (int i = mid - 1; i > nextMid; i--) {
-                    treeArray[level + 1][i] = "/";
-                }
-            }
-            
-            // Right branch
-            if (node.right != null) {
-                int nextMid = (mid + right) / 2;
-                // Draw right branch
-                for (int i = mid + nodeStr.length(); i < nextMid; i++) {
-                    treeArray[level + 1][i] = "\\";
-                }
-            }
-        }
-        
-        // Recursively fill in children
-        fillTreeArray(node.left, level + 2, left, mid - 1, treeArray);
-        fillTreeArray(node.right, level + 2, mid + 1, right, treeArray);
-    }
-
-    // Format node value with consistent width
-    private String formatNodeValue(int value) {
-        String nodeStr = Integer.toString(value);
-        // Ensure node has at least 3 characters width for better spacing
-        if (nodeStr.length() < 2) {
-            nodeStr = " " + nodeStr + " ";
-        } else if (nodeStr.length() < 3) {
-            nodeStr = nodeStr + " ";
-        }
-        return nodeStr;
-    }
-
     // Alternative detailed tree view for better visualization
     public void printDetailedTree() {
         System.out.println("\n===== Binary Search Tree Structure =====");
@@ -378,7 +288,7 @@ public class BinarySearchTreeEnhanced {
                 break;
             bst.insert(value);
             // Show tree after each insertion (optional)
-            // bst.visualizeTree();
+            // bst.printDetailedTree();
         }
 
         // Menu for operations
@@ -393,9 +303,8 @@ public class BinarySearchTreeEnhanced {
             System.out.println("7. Find minimum value");
             System.out.println("8. Find maximum value");
             System.out.println("9. Calculate height of the tree");
-            System.out.println("10. Visualize tree (Primary)");
-            System.out.println("11. Visualize tree (Alternative)");
-            System.out.println("12. Exit");
+            System.out.println("10. Visualize tree");
+            System.out.println("11. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
@@ -479,23 +388,16 @@ public class BinarySearchTreeEnhanced {
                     if (bst.isEmpty()) {
                         System.out.println("Tree is empty!");
                     } else {
-                        bst.visualizeTree();
-                    }
-                    break;
-                case 11:
-                    if (bst.isEmpty()) {
-                        System.out.println("Tree is empty!");
-                    } else {
                         bst.printDetailedTree();
                     }
                     break;
-                case 12:
+                case 11:
                     System.out.println("Exiting the program...");
                     break;
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
-        } while (choice != 12);
+        } while (choice != 11);
 
         scanner.close();
     }
