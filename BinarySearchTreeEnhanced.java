@@ -149,6 +149,7 @@ public class BinarySearchTreeEnhanced {
                 return rightHeight + 1;
         }
     }
+
     // Inorder traversal
     public void inorder() {
         System.out.print("Inorder Traversal: ");
@@ -279,6 +280,7 @@ public class BinarySearchTreeEnhanced {
         fillTreeArray(node.left, level + 2, left, mid - 1, treeArray);
         fillTreeArray(node.right, level + 2, mid + 1, right, treeArray);
     }
+
     // Format node value with consistent width
     private String formatNodeValue(int value) {
         String nodeStr = Integer.toString(value);
@@ -378,6 +380,7 @@ public class BinarySearchTreeEnhanced {
             // Show tree after each insertion (optional)
             // bst.visualizeTree();
         }
+
         // Menu for operations
         do {
             System.out.println("\nBST Operations Menu:");
@@ -395,6 +398,7 @@ public class BinarySearchTreeEnhanced {
             System.out.println("12. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
+
             switch (choice) {
                 case 1:
                     System.out.print("Enter the number to insert: ");
